@@ -12,6 +12,24 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        // test RegisterTextIO
+        // read shapes from file
+        HashMap<String, Double> readShapes = RegisterTextIO.readShapes("shapes.txt");
+        readShapes.forEach((n,s) -> System.out.println(n + " " + s));
+
+
+
+        // Test RegisterTextIO.writeShapesToFile
+        // create hashmap first
+//        HashMap<String, Integer> createdShapes = new HashMap<>();
+//        createdShapes.put("Cube", 99);
+//        createdShapes.put("Cylinder", 55);
+//        createdShapes.put("Pyramid", 123);
+//        createdShapes.put("Sphere", 75);
+//        createdShapes.put("Square", 10000);
+//        RegisterTextIO.writeShapesToFile("createdShapes.txt", createdShapes);
+
+
         Register register = new Register();
         primaryStage.setTitle("VAT");
         Parent registerView = new RegisterView(register).getView();

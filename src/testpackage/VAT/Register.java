@@ -7,6 +7,7 @@ public class Register {
 
     // associatie hier vanwege deze list van shapes
     private List<Shape> chosenShapes;
+
     public Register() {
         this.chosenShapes = new ArrayList<>();
     }
@@ -30,7 +31,6 @@ public class Register {
     public void save(Shape shape) {
         chosenShapes.add(shape);
     }
-
 
     public double totalVolume(){
         double total = 0.0;
