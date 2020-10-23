@@ -5,8 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import testpackage.VAT.*;
 import testpackage.ui.RegisterView;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class Main extends Application {
 
@@ -14,9 +13,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         Register register = new Register();
-        List<Shape> testShapes = new ArrayList<>();
         primaryStage.setTitle("VAT");
-        Parent registerView = new RegisterView(register,testShapes).getView();
+        Parent registerView = new RegisterView(register).getView();
         primaryStage.setScene(new Scene(registerView));
         primaryStage.show();
 

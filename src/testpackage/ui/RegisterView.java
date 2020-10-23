@@ -15,11 +15,10 @@ import java.util.List;
 public class RegisterView {
 
     private Register register;
-    private List<Shape> shapes;
 
-    public RegisterView(Register register, List<Shape> shapes) {
+    public RegisterView(Register register) {
         this.register = register;
-        this.shapes = shapes;
+
     }
 
     public Parent getView(){
@@ -29,6 +28,7 @@ public class RegisterView {
         VBox registerOverview = new VBox();
         ListView<Shape> listView = new ListView<>();
         listView.setItems(FXCollections.observableList(register.getAll()));
+
 
         // opties voor rechter VBOX
         registerOverview.getChildren().addAll(listView);
@@ -65,7 +65,9 @@ public class RegisterView {
         TextField totalVolumeField = new TextField();
         Label totalCubesLabel = new Label("Total cubes:");
         TextField totalCubesField = new TextField();
-        HashMap<Shape, Integer> countShapes = register.getShapes();
+
+
+
 
         // delete functionality
         deleteButton.setOnAction(e -> {
@@ -74,13 +76,17 @@ public class RegisterView {
             listView.getItems().remove(index);
         });
 
+
         // refresh functionality
         refreshButton.setOnAction(e -> {
             listView.setItems(FXCollections.observableList(register.getAll()));
             String sVolume = String.valueOf(register.totalVolume());
             totalVolumeField.setText(sVolume);
+            totalCubesField.setText(countCubes());
 
         });
+
+
 
         // add functionality
         addButton.setOnAction((event) -> {
@@ -110,7 +116,7 @@ public class RegisterView {
 
         });
 
-        menu.getChildren().addAll(comboBox,addButton,deleteButton,refreshButton,totalVolume,totalCubesLabel,totalCubesField);
+        menu.getChildren().addAll(comboBox,addButton,deleteButton,refreshButton,totalVolume,totalVolumeField,totalCubesLabel,totalCubesField);
         BorderPane borderPane = new BorderPane();
         borderPane.setLeft(menu);
         borderPane.setRight(registerOverview);
@@ -118,8 +124,18 @@ public class RegisterView {
 
     }
 
-    public void chooseShape(Shape shape){
-        shapes.add(shape);
-    }
+//    public void chooseShape(Shape shape){
+//        shapes.add(shape);
+//    }
+
+    public String countCubes() {
+        final String[] countCubes = new String[1];
+        HashMap<Shape, Integer> countShapes = register.getShapes();
+        countShapes.forEach((shape, n) -> {
+            countCubes[0] = String.valueOf(n);
+
+        });
+        return countCubes[0];
+    };
 
 }

@@ -20,11 +20,12 @@ public class Sphere implements Shape{
         return radius;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
-//    public String getDescription() {
+    //    public String getDescription() {
 //        return name + " volume: " + calculateVolume();
 //    }
 

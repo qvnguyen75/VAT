@@ -23,6 +23,7 @@ public class Pyramid implements Shape {
         return surfaceArea;
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -37,11 +38,6 @@ public class Pyramid implements Shape {
     }
 
     @Override
-    public String toString() {
-        return name;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -52,5 +48,10 @@ public class Pyramid implements Shape {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return this.name + ": volume: " + calculateVolume();
     }
 }

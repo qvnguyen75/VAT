@@ -1,7 +1,5 @@
 package testpackage.VAT;
 
-import java.util.Objects;
-
 public class Cube implements Shape {
 
     private String name = "Cube";
@@ -33,29 +31,17 @@ public class Cube implements Shape {
 
     @Override
     public String getName() {
-        return this.name;
+        return name;
     }
-
 
     @Override
-    public boolean equals(Object comparedShape) {
-        // if the variables are located in the same place, they're the same
-        if (this == comparedShape) {
-            return true;
-        }
-        // if comparedShape is not of type Book, the objects aren't the same
-        if (!(comparedShape instanceof Cube)) {
-            return false;
-        }
-        // let's convert the object to a Shape-olioksi
-        Cube comparedCube = (Cube) comparedShape;
-        // if the instance variables of the objects are the same, so are the objects
-        if (this.name.equals(comparedCube.name) && calculateVolume() == comparedCube.calculateVolume()){
-            return true;
-        }
-        // otherwise, the objects aren't the same
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cube cube = (Cube) o;
+        return name.equals(cube.name);
     }
+
     @Override
     public int hashCode() {
         return name.hashCode();

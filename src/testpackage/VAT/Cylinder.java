@@ -25,8 +25,9 @@ public class Cylinder implements Shape {
         return radius;
     }
 
+    @Override
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public double calculateVolume() {
@@ -36,11 +37,6 @@ public class Cylinder implements Shape {
 
     public void order (){
         System.out.println(this.name + " created");
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 
     @Override
@@ -55,4 +51,10 @@ public class Cylinder implements Shape {
     public int hashCode() {
         return name.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return this.name + ": volume: " + calculateVolume();
+    }
+
 }

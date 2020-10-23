@@ -43,6 +43,7 @@ public class CubeView {
             Cube cube = new Cube(length,width,depth);
 
             register.save(cube);
+
             heightField.clear();
             widthField.clear();
             depthField.clear();

@@ -12,9 +12,11 @@ public class Square implements Shape{
 
     }
 
+    @Override
     public String getName() {
-        return this.name;
+        return name;
     }
+
 
     public double getWidth() {
         return width;
@@ -26,10 +28,6 @@ public class Square implements Shape{
 
     public double calculateVolume() {
         return getWidth() * getHeight();
-    }
-
-    public void order (){
-        System.out.println(this.name + " created");
     }
 
     @Override
