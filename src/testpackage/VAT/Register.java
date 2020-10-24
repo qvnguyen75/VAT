@@ -1,12 +1,15 @@
 package testpackage.VAT;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
-public class Register {
+public class Register implements Serializable {
 
     // associatie hier vanwege deze list van shapes
     private List<Shape> chosenShapes;
+//    private List<Objects> chosenObjects;
 
     public Register() {
         this.chosenShapes = new ArrayList<>();
@@ -30,6 +33,10 @@ public class Register {
 
     public void save(Shape shape) {
         chosenShapes.add(shape);
+    }
+
+    public void clear(){
+        chosenShapes.clear();
     }
 
     public double totalVolume(){

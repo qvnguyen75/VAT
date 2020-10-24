@@ -1,6 +1,8 @@
 package testpackage.VAT;
 
-public class Cube implements Shape {
+import java.io.Serializable;
+
+public class Cube implements Shape, Serializable {
 
     private String name = "Cube";
     private double width;
