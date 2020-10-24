@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Sphere implements Shape{
 
     private String name = "Sphere";
+    private Shapes type = Shapes.SPHERE;
     private double radius;
     private static double pi = 3.14;
 
@@ -25,6 +26,8 @@ public class Sphere implements Shape{
         return name;
     }
 
+    public String getType(){ return type.name(); }
+
     //    public String getDescription() {
 //        return name + " volume: " + calculateVolume();
 //    }
@@ -36,6 +39,12 @@ public class Sphere implements Shape{
     public double calculateVolume() {
         double breuk = (double) 4 / 3;
         return breuk * pi * Math.pow(getRadius(),3);
+    }
+
+    @Override
+    public void saveToDatabase() {
+        MyDatabase db = new MyDatabase();
+        db.insertSphere(this);
     }
 
     @Override

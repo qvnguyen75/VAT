@@ -5,14 +5,13 @@ import java.util.Objects;
 public class Cylinder implements Shape {
 
     private String name = "Cylinder";
+    private Shapes type = Shapes.CYLINDER;
     private double height;
     private double radius;
-    private static double pi = 3.14;
 
     public Cylinder(){}
 
-    public Cylinder(double height,double radius) {
-        this.name = "Cylinder";
+    public Cylinder(double height, double radius) {
         this.height = height;
         this.radius = radius;
     }
@@ -30,13 +29,15 @@ public class Cylinder implements Shape {
         return name;
     }
 
+    public String getType(){ return type.name(); }
+
     public double calculateVolume() {
-        double r2 = getRadius() * getRadius();
-        return pi * r2 * getHeight();
+        return Math.PI * Math.pow(radius, 2) * getHeight();
     }
 
-    public void order (){
-        System.out.println(this.name + " created");
+    public void saveToDatabase(){
+        MyDatabase db = new MyDatabase();
+        db.insertCylinder(this);
     }
 
     @Override

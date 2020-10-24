@@ -47,15 +47,15 @@ public class RegisterView {
         // items for combobox in observableArrayList
         ObservableList<String> options =
                 FXCollections.observableArrayList(
+                        "Cone",
                         "Cube",
-                        "Sphere",
                         "Cylinder",
-                        "Square",
+                        "Sphere",
                         "Pyramid"
                 );
 
         ComboBox<String> comboBox = new ComboBox<>(options);
-        comboBox.setValue("Cube");
+        comboBox.setValue("Cone");
 
         // ui buttons
         Button addButton = new Button("Add");
@@ -96,22 +96,22 @@ public class RegisterView {
                     CubeView cv = new CubeView(register);
                     cv.getView();
                 }
-//                case "Sphere" -> {
-//                    SphereView sv = new SphereView(dbShape);
-//                    sv.getView();
-//                }
-//                case "Rectangle" -> {
-//                    RectangleView rv = new RectangleView(dbShape);
-//                    rv.getView();
-//                }
-//                case "Square" -> {
-//                    SquareView sqv = new SquareView(dbShape);
-//                    sqv.getView();
-//                }
-//                case "Pyramid" -> {
-//                    PyramidView pv = new PyramidView(dbShape);
-//                    pv.getView();
-//                }
+                case "Sphere" -> {
+                    SphereView sv = new SphereView(register);
+                    sv.getView();
+                }
+                case "Cylinder" -> {
+                    CylinderView rv = new CylinderView(register);
+                    rv.getView();
+                }
+                case "Cone" -> {
+                    ConeView coneView = new ConeView(register);
+                    coneView.getView();
+                }
+                case "Pyramid" -> {
+                    PyramidView pv = new PyramidView(register);
+                    pv.getView();
+                }
             }
 
         });

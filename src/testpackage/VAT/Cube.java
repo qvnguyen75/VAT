@@ -3,14 +3,15 @@ package testpackage.VAT;
 public class Cube implements Shape {
 
     private String name = "Cube";
+    private Shapes type = Shapes.CUBE;
     private double width;
     private double height;
-    private double depth;
+    private double length;
 
-    public Cube(double width, double height, double depth) {
+    public Cube(double width, double height, double length) {
         this.width = width;
         this.height = height;
-        this.depth = depth;
+        this.length = length;
     }
 
     public double getWidth() {
@@ -21,12 +22,17 @@ public class Cube implements Shape {
         return height;
     }
 
-    public double getDepth() {
-        return depth;
-    }
+    public double getLength() { return length; }
+
+    public String getType(){ return type.name(); }
 
     public double calculateVolume(){
-        return getWidth() * getHeight() * getDepth();
+        return getWidth() * getHeight() * getLength();
+    }
+
+    public void saveToDatabase(){
+        MyDatabase db = new MyDatabase();
+        db.insertCube(this);
     }
 
     @Override

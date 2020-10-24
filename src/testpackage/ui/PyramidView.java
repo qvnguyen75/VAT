@@ -8,13 +8,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import testpackage.VAT.Cube;
+import testpackage.VAT.Pyramid;
 import testpackage.VAT.Register;
 
-public class CubeView {
+public class PyramidView {
 
     private final Register register;
 
-    public CubeView(Register register) {
+    public PyramidView(Register register) {
         this.register = register;
     }
 
@@ -23,44 +24,44 @@ public class CubeView {
         gridpane.setAlignment(Pos.CENTER);
         gridpane.setHgap(10);
         gridpane.setVgap(10);
-        Label instructionWidth = new Label("Width:");
+        Label instructionLength = new Label("Base length:");
+        Label instructionWidth = new Label("Base width:");
         Label instructionHeight = new Label("Height:");
-        Label instructionDepth = new Label("Depth:");
-        TextField heightField = new TextField();
+        TextField lengthField = new TextField();
         TextField widthField = new TextField();
-        TextField depthField = new TextField();
+        TextField heightField = new TextField();
         Button addButton = new Button("Add");
 
         addButton.setOnAction((event) -> {
-            String heightInput = heightField.getText();
+            String lengthInput = lengthField.getText();
             String widthInput = widthField.getText();
-            String depthInput = depthField.getText();
+            String heightInput = heightField.getText();
 
-            double length = Double.parseDouble(heightInput);
+            double length = Double.parseDouble(lengthInput);
             double width = Double.parseDouble(widthInput);
-            double depth = Double.parseDouble(depthInput);
+            double height = Double.parseDouble(heightInput);
 
-            Cube cube = new Cube(length,width,depth);
+            Pyramid pyramid = new Pyramid(length, width, height);
 
-            cube.saveToDatabase();
+            pyramid.saveToDatabase();
 
-            heightField.clear();
+            lengthField.clear();
             widthField.clear();
-            depthField.clear();
+            heightField.clear();
 
         });
 
-        gridpane.add(instructionHeight,0,0);
-        gridpane.add(heightField,1,0);
+        gridpane.add(instructionLength,0,0);
+        gridpane.add(lengthField,1,0);
         gridpane.add(instructionWidth,0,1);
         gridpane.add(widthField,1,1);
-        gridpane.add(instructionDepth,0,2);
-        gridpane.add(depthField,1,2);
+        gridpane.add(instructionHeight,0,2);
+        gridpane.add(heightField,1,2);
         gridpane.add(addButton,0,3);
 
         Scene squareScene = new Scene(gridpane,300,300);
         Stage squareStage = new Stage();
-        squareStage.setTitle("Cube");
+        squareStage.setTitle("Add Pyramid");
         squareStage.setScene(squareScene);
         squareStage.show();
 

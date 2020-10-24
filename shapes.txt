@@ -1,5 +1,2 @@
-cube;50
-cylinder;601,5
-pyramid;333,4
-square;123,34
-radius;666,66
+cube;50;50;50
+cylinder;25;25

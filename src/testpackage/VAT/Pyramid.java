@@ -5,23 +5,34 @@ import java.util.Objects;
 public class Pyramid implements Shape {
 
     private String name = "Pyramid";
+    private Shapes type = Shapes.PYRAMID;
     private double height;
-    private double surfaceArea;
+    private double length;
+    private double width;
 
-    public Pyramid(){}
-
-    public Pyramid(double height, double surfaceArea) {
+    public Pyramid(double length, double width, double height) {
         this.height = height;
-        this.surfaceArea = surfaceArea;
+        this.length = length;
+        this.width = width;
     }
 
     public double getHeight() {
         return height;
     }
 
-    public double getSurfaceArea() {
-        return surfaceArea;
+    public double getLength() {
+        return length;
     }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getSurfaceArea() {
+        return length * width;
+    }
+
+    public String getType(){ return type.name(); }
 
     @Override
     public String getName() {
@@ -30,11 +41,12 @@ public class Pyramid implements Shape {
 
     public double calculateVolume(){
         double breuk = (double) 1 / 3;
-        return breuk * surfaceArea * height;
+        return breuk * getSurfaceArea() * height;
     }
 
-    public void order (){
-        System.out.println(this.name + " created");
+    public void saveToDatabase(){
+        MyDatabase db = new MyDatabase();
+        db.insertPyramid(this);
     }
 
     @Override
