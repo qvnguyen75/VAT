@@ -1,21 +1,19 @@
 package testpackage.VAT;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MyDatabase {
 
     private Connection getConnection(){
-        try (Connection connection =  DriverManager.getConnection("jdbc:mysql://localhost:3306/VAT", "root", "")){
-            return connection;
+        try {
+            return DriverManager.getConnection("jdbc:mysql://localhost:3306/VAT", "root", "");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
     public void insertCube(Cube cube){
-        try (Connection connection =  DriverManager.getConnection("jdbc:mysql://localhost:3306/VAT", "root", "")){
+        try (Connection connection = getConnection()){
             String insertQuery = "INSERT INTO shapes (type, length, width, height) VALUES (?, ?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(insertQuery)){
                 statement.setString(1, cube.getType());
@@ -33,7 +31,7 @@ public class MyDatabase {
     }
 
     public void insertCone(Cone cone){
-        try (Connection connection =  DriverManager.getConnection("jdbc:mysql://localhost:3306/VAT", "root", "")){
+        try (Connection connection = getConnection()){
             String insertQuery = "INSERT INTO shapes (type, height, radius) VALUES (?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(insertQuery)){
                 statement.setString(1, cone.getType());
@@ -50,7 +48,7 @@ public class MyDatabase {
     }
 
     public void insertCylinder(Cylinder cylinder){
-        try (Connection connection =  DriverManager.getConnection("jdbc:mysql://localhost:3306/VAT", "root", "")){
+        try (Connection connection = getConnection()){
             String insertQuery = "INSERT INTO shapes (type, height, radius) VALUES (?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(insertQuery)){
                 statement.setString(1, cylinder.getType());
@@ -67,7 +65,7 @@ public class MyDatabase {
     }
 
     public void insertPyramid(Pyramid pyramid){
-        try (Connection connection =  DriverManager.getConnection("jdbc:mysql://localhost:3306/VAT", "root", "")){
+        try (Connection connection = getConnection()){
             String insertQuery = "INSERT INTO shapes (type, length, width, height) VALUES (?, ?, ?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(insertQuery)){
                 statement.setString(1, pyramid.getType());
@@ -85,7 +83,7 @@ public class MyDatabase {
     }
 
     public void insertSphere(Sphere sphere){
-        try (Connection connection =  DriverManager.getConnection("jdbc:mysql://localhost:3306/VAT", "root", "")){
+        try (Connection connection = getConnection()){
             String insertQuery = "INSERT INTO shapes (type, radius) VALUES (?, ?)";
             try (PreparedStatement statement = connection.prepareStatement(insertQuery)){
                 statement.setString(1, sphere.getType());
