@@ -14,8 +14,8 @@ public class Main extends Application {
 
         // test RegisterTextIO
         // read shapes from file
-//        HashMap<String, Double> readShapes = RegisterTextIO.readShapesFromFile("shapes.txt");
-//        readShapes.forEach((n,s) -> System.out.println(n + " " + s));
+        HashMap<String, Double> readShapes = RegisterTextIO.readShapesFromFile("shapes.txt");
+        readShapes.forEach((n,s) -> System.out.println(n + " " + s));
 
         // Test RegisterTextIO.writeShapesToFile
         // create hashmap first

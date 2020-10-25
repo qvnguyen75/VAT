@@ -66,9 +66,6 @@ public class RegisterView {
         Label totalCubesLabel = new Label("Total cubes:");
         TextField totalCubesField = new TextField();
 
-
-
-
         // delete functionality
         deleteButton.setOnAction(e -> {
             Shape shape = listView.getSelectionModel().getSelectedItem();
