@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.io.Serializable;
 
-public class Cube implements Shape {
+public class Cube implements Shape, Serializable {
+
 
     private String name = "Cube";
     private Shapes type = Shapes.CUBE;

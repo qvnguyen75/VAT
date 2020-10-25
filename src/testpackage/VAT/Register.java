@@ -1,11 +1,14 @@
 package testpackage.VAT;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
-public class Register {
+public class Register implements Serializable {
 
     // associatie hier vanwege deze list van shapes
     private List<Shape> chosenShapes;
@@ -14,7 +17,7 @@ public class Register {
     public Register() {
         this.chosenShapes = new ArrayList<>();
     }
-
+  
     public String totalVolume(){
         double total = 0.0;
         for (Shape chosenShape : chosenShapes) {

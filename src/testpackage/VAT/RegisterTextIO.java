@@ -13,7 +13,7 @@ public class RegisterTextIO {
 
 
     // READ FILE AND RETURN AS HASHMAP
-    public static HashMap<String, Double> readShapes(String fileName){
+    public static HashMap<String, Double> readShapesFromFile(String fileName){
 
         HashMap<String, Double> shapes = new HashMap<>();
 
@@ -22,8 +22,11 @@ public class RegisterTextIO {
                 String shapeLine = scanner.nextLine();
                 String[] parts = shapeLine.split(";");
 
+                // USE NUMBERFORMATTING
                 NumberFormat format = NumberFormat.getInstance(Locale.getDefault());
                 double surface = format.parse(parts[1]).doubleValue();
+                // INSTEAD OF NORMAL PARSING
+//                double surface1 = Double.parseDouble(parts[1]);
                 shapes.put(parts[0],surface);
             }
         }
@@ -37,13 +40,16 @@ public class RegisterTextIO {
         return shapes;
     }
 
+
     public static void writeShapesToFile(String filename, HashMap<String, Integer> sales){
         try (PrintWriter printWriter = new PrintWriter(new File(filename))) {
             sales.forEach((shape, count) -> {
                 // println doet autmoatisch neiwe regele
                 printWriter.println(shape + ";" + count);
             });
-        } catch (FileNotFoundException e) {
+        }
+        // bestand kan file of folder zijn daarom exceptie opvangen
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }

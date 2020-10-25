@@ -14,10 +14,8 @@ public class Main extends Application {
 
         // test RegisterTextIO
         // read shapes from file
-        HashMap<String, Double> readShapes = RegisterTextIO.readShapes("shapes.txt");
-        readShapes.forEach((n,s) -> System.out.println(n + " " + s));
-
-
+//        HashMap<String, Double> readShapes = RegisterTextIO.readShapesFromFile("shapes.txt");
+//        readShapes.forEach((n,s) -> System.out.println(n + " " + s));
 
         // Test RegisterTextIO.writeShapesToFile
         // create hashmap first
@@ -29,6 +27,14 @@ public class Main extends Application {
 //        createdShapes.put("Square", 10000);
 //        RegisterTextIO.writeShapesToFile("createdShapes.txt", createdShapes);
 
+          // test writeToObj
+//        Register testRegister = new Register();
+//        testRegister.save(new Cube(5,5,5));
+
+//        RegisterObjectIO.writeRegisterToObj("register.obj", register);
+//        Register readRegister = RegisterObjectIO.readRegister("register.obj");
+
+//        System.out.println(readRegister.totalVolume());
 
         Register register = new Register();
         primaryStage.setTitle("VAT");
