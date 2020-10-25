@@ -5,27 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Objects;
 
-public class Cylinder implements Shape {
+public class Cone implements Shape{
 
-    private String name = "Cylinder";
-    private Shapes type = Shapes.CYLINDER;
-    private double height;
+    private String name = "Cone";
+    private Shapes type = Shapes.CONE;
     private double radius;
+    private double height;
     private MyDatabase myDatabase = new MyDatabase();
 
-    public Cylinder(){}
-
-    public Cylinder(double height, double radius) {
-        this.height = height;
+    public Cone(double radius, double height) {
         this.radius = radius;
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public double getRadius() {
-        return radius;
+        this.height = height;
     }
 
     @Override
@@ -35,12 +25,21 @@ public class Cylinder implements Shape {
 
     public String getType(){ return type.name(); }
 
+    public double getRadius() {
+        return radius;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
     public double calculateVolume() {
-        return Math.PI * Math.pow(radius, 2) * getHeight();
+        double breuk = (double) 1 / 3;
+        return breuk * Math.PI * Math.pow(radius, 2) * height;
     }
 
     public void saveToDatabase(){
-        myDatabase.insertCylinder(this);
+        myDatabase.insertCone(this);
     }
 
     public void deleteFromDatabase(){
@@ -60,21 +59,20 @@ public class Cylinder implements Shape {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Cylinder cylinder = (Cylinder) o;
-        return Double.compare(cylinder.height, height) == 0 &&
-                Double.compare(cylinder.radius, radius) == 0 &&
-                Objects.equals(name, cylinder.name) &&
-                type == cylinder.type;
+        Cone cone = (Cone) o;
+        return Double.compare(cone.radius, radius) == 0 &&
+                Double.compare(cone.height, height) == 0 &&
+                Objects.equals(name, cone.name) &&
+                type == cone.type;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, type, height, radius);
+        return name.hashCode();
     }
 
     @Override
     public String toString() {
-        return this.name + " (h: " + getHeight() + ", r: " + getRadius() + ")";
+        return name + " (r: " + getRadius() + ", h: " + getHeight() + ")";
     }
-
 }

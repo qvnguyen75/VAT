@@ -8,13 +8,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import testpackage.VAT.Cube;
+import testpackage.VAT.Cylinder;
 import testpackage.VAT.Register;
 
-public class CubeView {
+public class CylinderView {
 
     private final Register register;
 
-    public CubeView(Register register) {
+    public CylinderView(Register register) {
         this.register = register;
     }
 
@@ -23,44 +24,37 @@ public class CubeView {
         gridpane.setAlignment(Pos.CENTER);
         gridpane.setHgap(10);
         gridpane.setVgap(10);
-        Label instructionWidth = new Label("Width:");
         Label instructionHeight = new Label("Height:");
-        Label instructionDepth = new Label("Depth:");
+        Label instructionRadius = new Label("Radius:");
         TextField heightField = new TextField();
-        TextField widthField = new TextField();
-        TextField depthField = new TextField();
+        TextField radiusField = new TextField();
         Button addButton = new Button("Add");
 
         addButton.setOnAction((event) -> {
             String heightInput = heightField.getText();
-            String widthInput = widthField.getText();
-            String depthInput = depthField.getText();
+            String radiusInput = radiusField.getText();
 
-            double length = Double.parseDouble(heightInput);
-            double width = Double.parseDouble(widthInput);
-            double depth = Double.parseDouble(depthInput);
+            double height = Double.parseDouble(heightInput);
+            double radius = Double.parseDouble(radiusInput);
 
-            Cube cube = new Cube(length,width,depth);
+            Cylinder cylinder = new Cylinder(height, radius);
 
-            cube.saveToDatabase();
+            cylinder.saveToDatabase();
 
             heightField.clear();
-            widthField.clear();
-            depthField.clear();
+            radiusField.clear();
 
         });
 
         gridpane.add(instructionHeight,0,0);
         gridpane.add(heightField,1,0);
-        gridpane.add(instructionWidth,0,1);
-        gridpane.add(widthField,1,1);
-        gridpane.add(instructionDepth,0,2);
-        gridpane.add(depthField,1,2);
-        gridpane.add(addButton,0,3);
+        gridpane.add(instructionRadius,0,1);
+        gridpane.add(radiusField,1,1);
+        gridpane.add(addButton,0,2);
 
         Scene squareScene = new Scene(gridpane,300,300);
         Stage squareStage = new Stage();
-        squareStage.setTitle("Cube");
+        squareStage.setTitle("Add Cylinder");
         squareStage.setScene(squareScene);
         squareStage.show();
 
