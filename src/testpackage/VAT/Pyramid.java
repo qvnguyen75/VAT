@@ -1,5 +1,8 @@
 package testpackage.VAT;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class Pyramid implements Shape {
@@ -9,6 +12,7 @@ public class Pyramid implements Shape {
     private double height;
     private double length;
     private double width;
+    private MyDatabase myDatabase = new MyDatabase();
 
     public Pyramid(double length, double width, double height) {
         this.height = height;
@@ -45,8 +49,21 @@ public class Pyramid implements Shape {
     }
 
     public void saveToDatabase(){
-        MyDatabase db = new MyDatabase();
-        db.insertPyramid(this);
+        myDatabase.insertPyramid(this);
+    }
+
+    public void deleteFromDatabase(){
+        try (Connection connection = myDatabase.getConnection()){
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM shapes WHERE type = ? AND length = ? AND width = ? AND height = ?");
+            statement.setString(1, type.name());
+            statement.setDouble(2, length);
+            statement.setDouble(3, width);
+            statement.setDouble(4, height);
+
+            statement.executeUpdate();
+        }catch (SQLException e){
+            System.out.println("SQL exceptie tijdens verwijderen vorm: " + e.getMessage());
+        }
     }
 
     @Override
@@ -54,16 +71,20 @@ public class Pyramid implements Shape {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Pyramid pyramid = (Pyramid) o;
-        return name.equals(pyramid.name);
+        return Double.compare(pyramid.height, height) == 0 &&
+                Double.compare(pyramid.length, length) == 0 &&
+                Double.compare(pyramid.width, width) == 0 &&
+                Objects.equals(name, pyramid.name) &&
+                type == pyramid.type;
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return Objects.hash(name, type, height, length, width);
     }
 
     @Override
     public String toString() {
-        return this.name + ": volume: " + calculateVolume();
+        return this.name + " (l: " + getLength() + ", w: " + getWidth() + ", h: " + getHeight() + ")";
     }
 }

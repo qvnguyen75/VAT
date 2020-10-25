@@ -1,14 +1,73 @@
 package testpackage.VAT;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MyDatabase {
 
-    private Connection getConnection(){
+    public Connection getConnection(){
         try {
             return DriverManager.getConnection("jdbc:mysql://localhost:3306/VAT", "root", "");
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public List<Shape> getAll() {
+        List<Shape> shapes = new ArrayList<>();
+        try (Connection connection = getConnection()){
+            String getQuery = "SELECT * FROM shapes";
+            PreparedStatement statement = connection.prepareStatement(getQuery);
+            ResultSet resultSet = statement.executeQuery();
+
+            while(resultSet.next()){
+                String shapeType = resultSet.getString("type");
+                double shapeLength = resultSet.getDouble("length");
+                double shapeWidth = resultSet.getDouble("width");
+                double shapeHeight = resultSet.getDouble("height");
+                double shapeRadius = resultSet.getDouble("radius");
+                switch (shapeType) {
+                    case "CONE" -> {
+                        Cone cone = new Cone(shapeRadius, shapeHeight);
+                        shapes.add(cone);
+                    }
+                    case "CUBE" -> {
+                        Cube cube = new Cube(shapeLength, shapeWidth, shapeHeight);
+                        shapes.add(cube);
+                    }
+                    case "CYLINDER" -> {
+                        Cylinder cylinder = new Cylinder(shapeHeight, shapeRadius);
+                        shapes.add(cylinder);
+                    }
+                    case "PYRAMID" -> {
+                        Pyramid pyramid = new Pyramid(shapeLength, shapeWidth, shapeHeight);
+                        shapes.add(pyramid);
+                    }
+                    case "SPHERE" -> {
+                        Sphere sphere = new Sphere(shapeRadius);
+                        shapes.add(sphere);
+                    }
+                    default -> System.out.println("Onbekend vormtype gevonden!");
+                }
+            }
+        } catch (SQLException e){
+            System.out.println("SQL exceptie tijdens ophalen van vormen: " + e.getMessage());
+        }
+
+        return shapes;
+    }
+
+    public void deleteAll(){
+        try (Connection connection = getConnection()){
+            String deleteQuery = "TRUNCATE shapes";
+            try (PreparedStatement statement = connection.prepareStatement(deleteQuery)){
+                statement.execute();
+            }catch (SQLException e){
+                System.out.println("SQL exceptie tijdens verwijderen vormen! " + e.getMessage());
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL exceptie tijdens verwijderen vormen! " + e.getMessage());
         }
     }
 

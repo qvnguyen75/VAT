@@ -60,29 +60,37 @@ public class RegisterView {
         // ui buttons
         Button addButton = new Button("Add");
         Button deleteButton = new Button("Delete");
+        Button deleteAllButton = new Button("Delete all");
         Button refreshButton = new Button("Refresh");
         Label totalVolume = new Label("Total volume:");
         TextField totalVolumeField = new TextField();
         Label totalCubesLabel = new Label("Total cubes:");
         TextField totalCubesField = new TextField();
 
-
-
-
         // delete functionality
         deleteButton.setOnAction(e -> {
             Shape shape = listView.getSelectionModel().getSelectedItem();
+            shape.deleteFromDatabase();
+
             int index = listView.getSelectionModel().getSelectedIndex();
-            listView.getItems().remove(index);
+            try {
+                listView.getItems().remove(index);
+            }catch (IndexOutOfBoundsException exception){
+                System.out.println("Exceptie tijdens verwijderen vorm!" + exception.getMessage());
+            }
         });
 
+        // Delete All functionality
+        deleteAllButton.setOnAction(e -> {
+            register.deleteAll();
+        });
 
         // refresh functionality
         refreshButton.setOnAction(e -> {
-            listView.setItems(FXCollections.observableList(register.getAll()));
-            String sVolume = String.valueOf(register.totalVolume());
-            totalVolumeField.setText(sVolume);
-            totalCubesField.setText(countCubes());
+            List<Shape> shapes = register.getAll();
+            listView.setItems(FXCollections.observableList(shapes));
+            totalVolumeField.setText(String.valueOf(register.totalVolume()));
+            totalCubesField.setText(String.valueOf(shapes.size()));
 
         });
 
@@ -116,26 +124,11 @@ public class RegisterView {
 
         });
 
-        menu.getChildren().addAll(comboBox,addButton,deleteButton,refreshButton,totalVolume,totalVolumeField,totalCubesLabel,totalCubesField);
+        menu.getChildren().addAll(comboBox, addButton, deleteButton, deleteAllButton, refreshButton, totalVolume, totalVolumeField, totalCubesLabel, totalCubesField);
         BorderPane borderPane = new BorderPane();
         borderPane.setLeft(menu);
         borderPane.setRight(registerOverview);
         return borderPane;
 
     }
-
-//    public void chooseShape(Shape shape){
-//        shapes.add(shape);
-//    }
-
-    public String countCubes() {
-        final String[] countCubes = new String[1];
-        HashMap<Shape, Integer> countShapes = register.getShapes();
-        countShapes.forEach((shape, n) -> {
-            countCubes[0] = String.valueOf(n);
-
-        });
-        return countCubes[0];
-    };
-
 }

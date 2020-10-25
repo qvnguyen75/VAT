@@ -1,5 +1,8 @@
 package testpackage.VAT;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class Cone implements Shape{
@@ -8,6 +11,7 @@ public class Cone implements Shape{
     private Shapes type = Shapes.CONE;
     private double radius;
     private double height;
+    private MyDatabase myDatabase = new MyDatabase();
 
     public Cone(double radius, double height) {
         this.radius = radius;
@@ -35,8 +39,20 @@ public class Cone implements Shape{
     }
 
     public void saveToDatabase(){
-        MyDatabase db = new MyDatabase();
-        db.insertCone(this);
+        myDatabase.insertCone(this);
+    }
+
+    public void deleteFromDatabase(){
+        try (Connection connection = myDatabase.getConnection()){
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM shapes WHERE type = ? AND height = ? AND radius = ?");
+            statement.setString(1, type.name());
+            statement.setDouble(2, height);
+            statement.setDouble(3, radius);
+
+            statement.executeUpdate();
+        }catch (SQLException e){
+            System.out.println("SQL exceptie tijdens verwijderen vorm: " + e.getMessage());
+        }
     }
 
     @Override
@@ -57,6 +73,6 @@ public class Cone implements Shape{
 
     @Override
     public String toString() {
-        return name + " volume: " + calculateVolume();
+        return name + " (r: " + getRadius() + ", h: " + getHeight() + ")";
     }
 }
