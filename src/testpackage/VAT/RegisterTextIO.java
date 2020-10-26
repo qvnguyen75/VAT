@@ -40,15 +40,23 @@ public class RegisterTextIO {
         return shapes;
     }
 
+    public static void writeShapeToFile(String filename, HashMap<String, Integer> shapes){
+        try (PrintWriter printWriter = new PrintWriter(new File(filename))) {
+            shapes.forEach((shape, count) -> {
+                printWriter.println(shape + ";" + count);
+            });
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void writeShapesToFile(String filename, HashMap<String, Integer> sales){
         try (PrintWriter printWriter = new PrintWriter(new File(filename))) {
             sales.forEach((shape, count) -> {
-                // println doet automatisch nieuwe regel
                 printWriter.println(shape + ";" + count);
             });
         }
-        // bestand kan file of folder zijn daarom exceptie opvangen
         catch (FileNotFoundException e) {
             e.printStackTrace();
         }
