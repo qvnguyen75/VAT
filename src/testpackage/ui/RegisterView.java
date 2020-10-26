@@ -7,8 +7,13 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import testpackage.VAT.Register;
-import testpackage.VAT.Shape;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.Window;
+import testpackage.VAT.*;
+
+import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 public class RegisterView {
@@ -27,7 +32,7 @@ public class RegisterView {
         VBox registerOverview = new VBox();
         ListView<Shape> listView = new ListView<>();
         listView.setItems(FXCollections.observableList(register.getAll()));
-
+        listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         // opties voor rechter VBOX
         registerOverview.getChildren().addAll(listView);
@@ -61,10 +66,17 @@ public class RegisterView {
         Button deleteButton = new Button("Delete");
         Button deleteAllButton = new Button("Delete all");
         Button refreshButton = new Button("Refresh");
-        Label totalVolume = new Label("Total volume:");
+        Label totalVolume = new Label("Total volume");
         TextField totalVolumeField = new TextField();
-        Label totalCubesLabel = new Label("Total cubes:");
-        TextField totalCubesField = new TextField();
+        Label totalShapesLabel = new Label("Total shapes");
+        TextField totalShapesField = new TextField();
+        Label readFromFileLabel = new Label("read from text file");
+        Button readFromFileButton = new Button("open");
+        Label readObjFileLabel = new Label("read object file");
+        Button readObjFileButton = new Button("open");
+        Button serializeShapeButton = new Button("serialize");
+        Label addShapeAsTextFile = new Label("Select shape to save as text file");
+        Button addShapeAsTextButton = new Button("Add");
 
         // delete functionality
         deleteButton.setOnAction(e -> {
@@ -89,7 +101,7 @@ public class RegisterView {
             List<Shape> shapes = register.getAll();
             listView.setItems(FXCollections.observableList(shapes));
             totalVolumeField.setText(String.valueOf(register.totalVolume()));
-            totalCubesField.setText(String.valueOf(shapes.size()));
+            totalShapesField.setText(String.valueOf(shapes.size()));
 
         });
 
@@ -121,11 +133,71 @@ public class RegisterView {
 
         });
 
-        menu.getChildren().addAll(comboBox, addButton, deleteButton, deleteAllButton, refreshButton, totalVolume, totalVolumeField, totalCubesLabel, totalCubesField);
+        readFromFileButton.setOnAction(e -> {
+            Window stage = registerOverview.getScene().getWindow();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choose file:");
+            fileChooser.setInitialDirectory(new File("C:\\"));
+            File file = fileChooser.showOpenDialog(stage);
+            if(file != null) {
+                HashMap<String, Double> readShapes = RegisterTextIO.readShapesFromFile(file.getName());
+
+                System.out.println("=================================== \n");
+                System.out.println("shapes en volumes van bestand: " + file.getName() + "\n");
+                readShapes.forEach((n,s) ->
+                    System.out.println(n + " " + s)
+                );
+                System.out.println("=================================== \n");
+            }
+
+        });
+
+        serializeShapeButton.setOnAction(e -> {
+            Shape shape = listView.getSelectionModel().getSelectedItem();
+            ShapeObjectIO.writeShapeToObj(shape.getName() + ".obj", shape);
+            System.out.println("=================================== \n");
+            System.out.println("Shape saved as .obj \n");
+            System.out.println("=================================== \n");
+        });
+
+        readObjFileButton.setOnAction(e -> {
+            Stage stage = new Stage();
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Choose file:");
+            fileChooser.setInitialDirectory(new File("C:\\"));
+            File file = fileChooser.showOpenDialog(stage);
+            if ( file != null ) {
+                Shape shape = ShapeObjectIO.readShape(file.getName());
+                shape.saveToDatabase();
+                System.out.println("=================================== \n");
+                System.out.println(shape + " volume: " + shape.calculateVolume() + "\n");
+                System.out.println("=================================== \n");
+            }
+
+        });
+
+        menu.getChildren().addAll(comboBox,
+                addButton,
+                deleteButton,
+                deleteAllButton,
+                serializeShapeButton,
+                refreshButton,
+                totalVolume,
+                totalVolumeField,
+                totalShapesLabel,
+                totalShapesField,
+                readFromFileLabel,
+                readFromFileButton,
+                readObjFileLabel,
+                readObjFileButton,
+                addShapeAsTextFile,
+                addShapeAsTextButton
+                );
         BorderPane borderPane = new BorderPane();
         borderPane.setLeft(menu);
         borderPane.setRight(registerOverview);
         return borderPane;
 
     }
+
 }
