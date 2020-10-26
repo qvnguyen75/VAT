@@ -1,16 +1,13 @@
 package testpackage.VAT;
-
 import java.io.*;
-import java.util.List;
 
 public class RegisterObjectIO implements Serializable {
-
-//    private Register register;
 
     public static void writeRegisterToObj(String filename, Register register){
         try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(filename))) {
             objectOutputStream.writeObject(register);
         } catch (IOException e) {
+            System.out.println("exceptie hier");
             e.printStackTrace();
         }
     }

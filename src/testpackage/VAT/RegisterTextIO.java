@@ -44,7 +44,7 @@ public class RegisterTextIO {
     public static void writeShapesToFile(String filename, HashMap<String, Integer> sales){
         try (PrintWriter printWriter = new PrintWriter(new File(filename))) {
             sales.forEach((shape, count) -> {
-                // println doet autmoatisch neiwe regele
+                // println doet automatisch nieuwe regel
                 printWriter.println(shape + ";" + count);
             });
         }

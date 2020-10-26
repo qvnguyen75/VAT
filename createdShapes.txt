@@ -1,5 +1,5 @@
-Sphere;75
-Cylinder;55
-Pyramid;123
-Cube;99
-Square;10000
+Sphere;4
+Cylinder;2
+Pyramid;3
+Cube;1
+Square;5
