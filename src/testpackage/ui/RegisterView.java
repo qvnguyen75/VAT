@@ -75,8 +75,8 @@ public class RegisterView {
         Label readObjFileLabel = new Label("read object file");
         Button readObjFileButton = new Button("open");
         Button serializeShapeButton = new Button("serialize");
-        Label addShapeAsTextFile = new Label("Select shape to save as text file");
-        Button addShapeAsTextButton = new Button("Add");
+        Label addShapesAsTextFile = new Label("Select shape to save as text file");
+        Button addShapesAsTextButton = new Button("Add");
 
         // delete functionality
         deleteButton.setOnAction(e -> {
@@ -176,6 +176,12 @@ public class RegisterView {
 
         });
 
+        addShapesAsTextButton.setOnAction(e -> {
+            List<Shape> shapes = listView.getSelectionModel().getSelectedItems();
+            RegisterTextIO.writeShapesToFile("newListFile.txt", shapes);
+
+        });
+
         menu.getChildren().addAll(comboBox,
                 addButton,
                 deleteButton,
@@ -190,8 +196,8 @@ public class RegisterView {
                 readFromFileButton,
                 readObjFileLabel,
                 readObjFileButton,
-                addShapeAsTextFile,
-                addShapeAsTextButton
+                addShapesAsTextFile,
+                addShapesAsTextButton
                 );
         BorderPane borderPane = new BorderPane();
         borderPane.setLeft(menu);

@@ -5,9 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class RegisterTextIO {
 
@@ -40,22 +38,11 @@ public class RegisterTextIO {
         return shapes;
     }
 
-    public static void writeShapeToFile(String filename, HashMap<String, Integer> shapes){
+    public static void writeShapesToFile(String filename, List<Shape> shapes){
         try (PrintWriter printWriter = new PrintWriter(new File(filename))) {
-            shapes.forEach((shape, count) -> {
-                printWriter.println(shape + ";" + count);
-            });
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void writeShapesToFile(String filename, HashMap<String, Integer> sales){
-        try (PrintWriter printWriter = new PrintWriter(new File(filename))) {
-            sales.forEach((shape, count) -> {
-                printWriter.println(shape + ";" + count);
-            });
+            for (Shape shape : shapes) {
+                printWriter.println(shape);
+            }
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
